@@ -1,0 +1,16 @@
+/* todoForm.css */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  margin-bottom: 5px;
+}
+
+.form-control {
+  margin-bottom: 10px;
+}
+
+.btn {
+  margin-top: 20px;
+}
