@@ -6,6 +6,7 @@ const Todo = require("./models/Todo");
 const User = require("./models/User");
 const { todo } = require("node:test");
 const jwt = require("jsonwebtoken");
+const Schedule = require("./schedule");
 require("dotenv").config();
 
 const jwtPassword = "123456";
@@ -18,8 +19,19 @@ const connectionString =
 
 mongoose
   .connect(connectionString)
-  .then(() => console.log("Connect to the DB.."))
+  .then(() => {
+    console.log("Connect to the DB..");
+    alluser();
+  })
   .catch((err) => console.log(err));
+
+const alluser = async function () {
+  const allusers = await User.find({});
+  console.log("allusers");
+  allusers.forEach((user) => {
+    Schedule(user._id);
+  });
+};
 
 const middleware = async function (req, res, next) {
   const username = req.headers.username;
