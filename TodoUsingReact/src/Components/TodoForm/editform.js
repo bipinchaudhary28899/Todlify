@@ -46,7 +46,7 @@ const TodoForm = ({ update, todo, editclick }) => {
     setCategory("");
   };
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} className="text-light">
       <Form.Group controlId="title" style={{ marginBottom: "15px" }}>
         <Form.Label>Title:</Form.Label>
         <Form.Control

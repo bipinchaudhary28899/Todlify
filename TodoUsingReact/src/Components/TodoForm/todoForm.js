@@ -71,8 +71,8 @@ const TodoForm = ({ onSubmit }) => {
   const errorstyle = { display: "block" };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="title" style={{ marginBottom: "15px" }}>
+    <Form onSubmit={handleSubmit} className="font-weight-bold text-dark">
+      <Form.Group controlId="title" style={{ marginBottom: "5px" }}>
         <Form.Label>Title:</Form.Label>
         <Form.Control
           type="text"
@@ -85,7 +85,7 @@ const TodoForm = ({ onSubmit }) => {
           </div>
         )}
       </Form.Group>
-      <Form.Group controlId="description" style={{ marginBottom: "15px" }}>
+      <Form.Group controlId="description" style={{ marginBottom: "5px" }}>
         <Form.Label>Description:</Form.Label>
         <Form.Control
           as="textarea"
@@ -98,7 +98,7 @@ const TodoForm = ({ onSubmit }) => {
           </div>
         )}
       </Form.Group>
-      <Form.Group controlId="status" style={{ marginBottom: "15px" }}>
+      <Form.Group controlId="status" style={{ marginBottom: "5px" }}>
         <Form.Label>Status:</Form.Label>
         <Form.Select value={status} onChange={(e) => setStatus(e.target.value)}>
           <option value="">Select Status</option>
@@ -113,7 +113,7 @@ const TodoForm = ({ onSubmit }) => {
           </div>
         )}
       </Form.Group>
-      <Form.Group controlId="priority" style={{ marginBottom: "15px" }}>
+      <Form.Group controlId="priority" style={{ marginBottom: "5px" }}>
         <Form.Label>Priority:</Form.Label>
         <Form.Select
           value={priority}
@@ -130,7 +130,7 @@ const TodoForm = ({ onSubmit }) => {
           </div>
         )}
       </Form.Group>
-      <Form.Group controlId="startDate" style={{ marginBottom: "15px" }}>
+      <Form.Group controlId="startDate" style={{ marginBottom: "5px" }}>
         <Form.Label>Start Date:</Form.Label>
         <Form.Control
           type="datetime-local"
@@ -143,7 +143,7 @@ const TodoForm = ({ onSubmit }) => {
           </div>
         )}
       </Form.Group>
-      <Form.Group controlId="endDate" style={{ marginBottom: "15px" }}>
+      <Form.Group controlId="endDate" style={{ marginBottom: "5px" }}>
         <Form.Label>End Date:</Form.Label>
         <Form.Control
           type="datetime-local"
@@ -156,7 +156,7 @@ const TodoForm = ({ onSubmit }) => {
           </div>
         )}
       </Form.Group>
-      <Form.Group controlId="email" style={{ marginBottom: "15px" }}>
+      <Form.Group controlId="email" style={{ marginBottom: "5px" }}>
         <Form.Label>Email:</Form.Label>
         <Form.Control
           type="email"
@@ -169,7 +169,7 @@ const TodoForm = ({ onSubmit }) => {
           </div>
         )}
       </Form.Group>
-      <Form.Group controlId="category" style={{ marginBottom: "15px" }}>
+      <Form.Group controlId="category" style={{ marginBottom: "5px" }}>
         <Form.Label>Category:</Form.Label>
         <Form.Control
           type="text"
@@ -182,8 +182,8 @@ const TodoForm = ({ onSubmit }) => {
           </div>
         )}
       </Form.Group>
-      <div className="text-center mt-3 mb-3">
-        <Button variant="primary" type="submit">
+      <div className="text-center mt-2 mb-2">
+        <Button  variant="primary" type="submit">
           Submit
         </Button>
       </div>

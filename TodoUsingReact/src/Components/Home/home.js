@@ -3,96 +3,76 @@ import "./home.css";
 import TodoForm from "../TodoForm/todoForm";
 import TodoList from "../TodoList/todoList";
 import EditForm from "../TodoForm/editform";
-import UserProfile from "../userProfile";
 
-// Color variables
-const backgroundColor1 = "#c3cbd6";
-const textColor1 = "#2a403d";
+// // Color variables
+// const backgroundColor1 = "#c3cbd6";
+// const textColor1 = "#2a403d";
 
-const Home = function ({ name, onLogout }) {
-  const [todos, settodos] = useState();
+const Home = function () {
+  const [todos, settodos] = useState([]);
   const [todo, settodo] = useState();
   const [edit, setedit] = useState(false);
+
   const handleonclick = function (todo) {
     setedit((edit) => !edit);
     settodo(() => todo);
   };
+
   const editonclick = async function (todo) {
     const url = "http://localhost:3001/to-do-app/" + todo._id;
     const result = await fetch(url, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json", // Set content type to JSON
-        Authorization: localStorage.getItem("token"), // specify the content type if sending JSON data// Additional headers if needed
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
       },
-      body: JSON.stringify(todo), // Convert data to JSON string
+      body: JSON.stringify(todo),
     });
     const result_json = await result.json();
-    //console.log("server", result_json);
-    // const resultget = await fetch("http://localhost:3001/to-do-app");
-    // const result_json = await resultget.json();
-    //console.log("entry", todo);
-    const indexToUpdate = todos.findIndex((obj) => {
-      return obj._id === todo._id;
-    });
-    //console.log(indexToUpdate);
+    const indexToUpdate = todos.findIndex((obj) => obj._id === todo._id);
     if (indexToUpdate !== -1) {
-      // Update the value of the desired property within that object
-      const updatedJsonData = [...todos]; // Create a shallow copy of the array
+      const updatedJsonData = [...todos];
       updatedJsonData[indexToUpdate] = {
-        ...updatedJsonData[indexToUpdate], // Copy the original object
-        ...todo, // Update the value of the desired property
+        ...updatedJsonData[indexToUpdate],
+        ...todo,
       };
-
-      // Return the updated JSON object
-
-      settodos(() => updatedJsonData);
+      settodos(updatedJsonData);
       setedit((edit) => !edit);
     }
   };
+
   const parteditonclick = async function (todo) {
     const url = "http://localhost:3001/to-do-app/" + todo._id;
     const result = await fetch(url, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json", // Set content type to JSON
-        Authorization: localStorage.getItem("token"), // specify the content type if sending JSON data// Additional headers if needed
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
       },
-      body: JSON.stringify(todo), // Convert data to JSON string
+      body: JSON.stringify(todo),
     });
     const result_json = await result.json();
-    //console.log("server", result_json);
-    // const resultget = await fetch("http://localhost:3001/to-do-app");
-    // const result_json = await resultget.json();
-    //console.log("entry", todo);
-    const indexToUpdate = todos.findIndex((obj) => {
-      return obj._id === todo._id;
-    });
-    //console.log(indexToUpdate);
+    const indexToUpdate = todos.findIndex((obj) => obj._id === todo._id);
     if (indexToUpdate !== -1) {
-      // Update the value of the desired property within that object
-      const updatedJsonData = [...todos]; // Create a shallow copy of the array
+      const updatedJsonData = [...todos];
       updatedJsonData[indexToUpdate] = {
-        ...updatedJsonData[indexToUpdate], // Copy the original object
-        ...todo, // Update the value of the desired property
+        ...updatedJsonData[indexToUpdate],
+        ...todo,
       };
-
-      // Return the updated JSON object
-
-      settodos(() => updatedJsonData);
+      settodos(updatedJsonData);
     }
   };
+
   const handleondelete = async function (todo) {
     const url = "http://localhost:3001/to-do-app/delete/" + todo._id;
     const result = await fetch(url, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token"), // specify the content type if sending JSON data
+        Authorization: localStorage.getItem("token"),
       },
     });
     const updatedTodos = todos.filter((obj) => obj._id !== todo._id);
-    // Update the state with the modified array
     settodos(updatedTodos);
   };
 
@@ -101,7 +81,7 @@ const Home = function ({ name, onLogout }) {
       const result = await fetch("http://localhost:3001/to-do-app", {
         headers: {
           "Content-Type": "application/json",
-          Authorization: localStorage.getItem("token"), // specify the content type if sending JSON data
+          Authorization: localStorage.getItem("token"),
         },
       });
       const result_json = await result.json();
@@ -109,6 +89,7 @@ const Home = function ({ name, onLogout }) {
     }
     fetchAPI();
   }, []);
+
   const handleSubmit = async (todo) => {
     const temp = {
       title: todo.title,
@@ -124,38 +105,36 @@ const Home = function ({ name, onLogout }) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token"), // specify the content type if sending JSON data
+        Authorization: localStorage.getItem("token"),
       },
       body: JSON.stringify(temp),
     });
     const postdata_json = await postdata.json();
-    // console.log("postdata", postdata_json);
-    // settodos((prevState) => ({
-    //   todos: [...prevState.todos, todo],
-    // }));
     settodos((prevState) => [...prevState, postdata_json.task]);
   };
-  //console.log("todos", todos);
+
   return (
     <>
-      <UserProfile userName={name} onLogout={onLogout} />
       {!edit ? (
         <div
-          className="home-container"
-          style={{ backgroundColor: backgroundColor1, color: textColor1 }}
+          className="home-container container-fluid"
+          style={{ backgroundColor: "transparent"}}
         >
-          <h1>Todo List</h1>
-          <TodoForm onSubmit={handleSubmit} />
-          {todos ? (
-            <TodoList
-              todos={todos}
-              handleonclickp={handleonclick}
-              handleondelete={handleondelete}
-              parteditonclick={parteditonclick}
-            />
-          ) : (
-            <></>
-          )}
+          <div className="form-container glass">
+            <TodoForm onSubmit={handleSubmit} />
+          </div>
+          <div className="list-container">
+            {todos.length > 0 ? (
+              <TodoList
+                todos={todos}
+                handleonclickp={handleonclick}
+                handleondelete={handleondelete}
+                parteditonclick={parteditonclick}
+              />
+            ) : (
+              <p className="text-center">No tasks available.</p>
+            )}
+          </div>
         </div>
       ) : (
         <EditForm edit={true} todo={todo} editclick={editonclick} />
@@ -165,6 +144,8 @@ const Home = function ({ name, onLogout }) {
 };
 
 export default Home;
+
+
 
 // export class Home extends Component {
 //   constructor(props) {

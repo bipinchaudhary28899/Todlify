@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(cors());
 
 const connectionString =
-  "mongodb+srv://refrt234:Refrt234@cluster0.yqnk1fe.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+  "mongodb+srv://bkumar28899:mGJXmw0ISUZohxqc@cluster0.2ad7zcr.mongodb.net/";
 
 mongoose
   .connect(connectionString)

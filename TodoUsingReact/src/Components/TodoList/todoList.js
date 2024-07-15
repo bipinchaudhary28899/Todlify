@@ -10,8 +10,8 @@ const TodoList = ({
 }) => {
   // Color variables
   //const [todolist, settodolist] = useState(todos);
-  const backgroundColor1 = "#c3cbd6";
-  const textColor1 = "#2a403d";
+  // const backgroundColor1 = "#c3cbd6";
+   const textColor1 = "white";
   //console.log(todos);
 
   const update = function (todo) {
@@ -128,7 +128,7 @@ const TodoList = ({
     }));
   };
   return (
-    <div style={{ backgroundColor: backgroundColor1, color: textColor1 }}>
+    <div style={{ backgroundColor: "transparent", color:textColor1}}>
       <div className="todos">
         <div>
           <h2>Today's Todos</h2>
@@ -194,10 +194,9 @@ const TodoList = ({
             ))}
           </ul>
         </div>
-      </div>
+      
+      <h2>Todos by Category</h2>
       <div>
-        <h2>Todos by Category</h2>
-        <div className="todos">
           {Object.entries(currentTodosByCategory).map(([category, todos]) => (
             <div key={category}>
               <h3>{category}</h3>
@@ -238,7 +237,7 @@ const TodoList = ({
               </ul>
             </div>
           ))}
-        </div>
+      </div>
       </div>
     </div>
   );

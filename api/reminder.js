@@ -6,8 +6,8 @@ function SendReminder(issue, title, email) {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "t82837220@gmail.com",
-      pass: "stwr nkje mzza gwwe",
+      user: "ydsandy431@gmail.com",
+      pass: "bbdu pwon xczf twge",
     },
   });
 

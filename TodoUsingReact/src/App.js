@@ -5,44 +5,39 @@ import Home from "./Components/Home/home";
 import LoginForm from "./Components/userlogin";
 import SignupForm from "./Components/usersign";
 import { useState } from "react";
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
-  const [name, setname] = useState();
+  const [name, setname] = useState("");
 
-  // Function to handle user login
+  // Function to handle user sign-up
   const handleSigin = async (requestBody) => {
-    // Perform login logic here
-    //setIsLoggedIn(true);
     const temp = {
       name: requestBody.name,
       email: requestBody.email,
       password: requestBody.password,
     };
     const result = await fetch("http://localhost:3001/signup", {
-      method: "POST", // Specify the HTTP method (GET, POST, PUT, DELETE, etc.)
+      method: "POST",
       headers: {
-        "Content-Type": "application/json", // Specify the content type
-        // username: "test@gmail.com", // Your custom header (e.g., Authorization)
-        // password: "12345",
-        // Add more headers if needed
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(temp),
     });
     const result_json = await result.json();
     console.log(result_json);
-    setIsSignUp(false); // Reset isSignUp state after successful login
+    setIsSignUp(false); // Reset isSignUp state after successful sign-up
   };
+
+  // Function to handle user login
   const handleLogin = async (email, password) => {
-    // Perform login logic here
-    // console.log("login", email, password);
     const result = await fetch("http://localhost:3001/signin", {
-      method: "POST", // Specify the HTTP method (GET, POST, PUT, DELETE, etc.)
+      method: "POST",
       headers: {
-        "Content-Type": "application/json", // Specify the content type
-        username: email, // Your custom header (e.g., Authorization)
+        "Content-Type": "application/json",
+        username: email,
         password: password,
-        // Add more headers if needed
       },
     });
     const result_json = await result.json();
@@ -50,16 +45,13 @@ function App() {
       alert(result_json.msg);
       return;
     }
-    // console.log(result_json);
     setname(result_json.name);
     localStorage.setItem("token", result_json.token);
     setIsLoggedIn(true);
-    //setIsSignUp(false); // Reset isSignUp state after successful login
   };
 
   // Function to handle user logout
   const handleLogout = () => {
-    // Perform logout logic here
     localStorage.removeItem("token");
     setIsLoggedIn(false);
   };
@@ -68,8 +60,29 @@ function App() {
   const handleSignupClick = () => {
     setIsSignUp(true);
   };
+
   return (
-    <div className="container">
+    <div className="container-fluid">
+      <nav className="navbar navbar-expand-lg navbar-light bg-transparent border-bottom border-3 border-white text-white">
+        <a className="navbar-brand text-bold text-light" href="#">TODLIFY</a>
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul className="navbar-nav ml-auto">
+            {isLoggedIn && (
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Welcome, {name}
+                </a>
+                <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <button className="dropdown-item" onClick={handleLogout}>Logout</button>
+                </div>
+              </li>
+            )}
+          </ul>
+        </div>
+      </nav>
       {/* Conditional rendering based on login state */}
       {isLoggedIn ? (
         <Home name={name} onLogout={handleLogout} />

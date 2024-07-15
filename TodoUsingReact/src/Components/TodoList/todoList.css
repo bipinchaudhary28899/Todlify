@@ -1,12 +1,12 @@
 .todos {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
-  justify-content: space-between;
-  margin-bottom: 20px;
+  justify-content: center;
+  align-items: center;
 }
 
 .todos > div {
-  width: calc(50% - 10px);
   margin-bottom: 20px;
 }
 
